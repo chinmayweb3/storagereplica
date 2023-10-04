@@ -11,7 +11,7 @@
     "next.config.js": true,
     "postcss.config.js": true,
     "README.md": true,
-    ".gitignore": true,
-    "node_modules": true
+    ".gitignore": true
+    // "node_modules": true
   }
 }
