@@ -8,7 +8,7 @@ function GetTrpc() {
   console.log("working with trpc", q.data);
 
   return (
-    <div>
+    <div className="font-orbitron">
       getTrpc{q.isLoading && "loading"}
       {q.data && "dsata loaded"}
     </div>

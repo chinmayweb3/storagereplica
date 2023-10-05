@@ -14,7 +14,7 @@ export const appRouter = router({
   healthcheck: publicProcedure.query(async () => {
     console.log("running healthcheck");
 
-    await wait(10000);
+    await wait(2000);
 
     return "ok";
   }),

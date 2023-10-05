@@ -4,6 +4,9 @@ import { Inter, Orbitron, Montserrat, Roboto } from "next/font/google";
 import { TrpcProvider } from "./_trpc/Trpcprovider";
 
 const inter = Inter({ subsets: ["latin"] });
+const orbitron = Orbitron({ weight: ["400", "500", "600", "700", "800"], subsets: ["latin"], variable: "--font-orbitron" });
+const montserrat = Montserrat({ weight: ["200", "300", "400", "500", "600", "700", "800"], subsets: ["latin"], variable: "--font-montserrat" });
+const roboto = Roboto({ weight: ["100", "300", "400", "500", "700"], subsets: ["latin"], variable: "--font-roboto" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${orbitron.variable} ${montserrat.variable} ${roboto.variable}`}>
       <TrpcProvider>
         <body className={inter.className}>{children}</body>
       </TrpcProvider>
