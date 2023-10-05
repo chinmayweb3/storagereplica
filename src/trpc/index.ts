@@ -1,3 +1,4 @@
+import { wait } from "@/libs/helper";
 import { initTRPC } from "@trpc/server";
 import { z } from "zod";
 
@@ -10,8 +11,10 @@ export const publicProcedure = t.procedure;
 
 export const appRouter = router({
   // get
-  healthcheck: publicProcedure.query(() => {
+  healthcheck: publicProcedure.query(async () => {
     console.log("running healthcheck");
+
+    await wait(10000);
 
     return "ok";
   }),
