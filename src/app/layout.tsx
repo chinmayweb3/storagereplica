@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Orbitron, Montserrat, Roboto } from "next/font/google";
 import { TrpcProvider } from "./_trpc/Trpcprovider";
+import Navbar from "@/app/compoents/navbar/page";
 
 const inter = Inter({ subsets: ["latin"] });
 const orbitron = Orbitron({ weight: ["400", "500", "600", "700", "800"], subsets: ["latin"], variable: "--font-orbitron" });
@@ -17,7 +18,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${orbitron.variable} ${montserrat.variable} ${roboto.variable}`}>
       <TrpcProvider>
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <div>
+            <Navbar />
+            {children}
+          </div>
+        </body>
       </TrpcProvider>
     </html>
   );
