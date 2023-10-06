@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { trpc } from "../_trpc/client";
+import { trpc } from "./_trpc/client";
 
 function GetTrpc() {
   const q = trpc.healthcheck.useQuery();
