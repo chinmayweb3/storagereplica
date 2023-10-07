@@ -1,4 +1,4 @@
-import { wait } from "@/libs/helper";
+import prisma from "@/libs/prisma";
 import { initTRPC } from "@trpc/server";
 import { z } from "zod";
 
@@ -12,7 +12,14 @@ export const publicProcedure = t.procedure;
 export const appRouter = router({
   // get
   healthcheck: publicProcedure.query(async () => {
-    console.log("running healthcheck");
+    console.log("\n\n\n\n\nrunning healthcheck");
+
+    console.log("prisma start");
+    // console.log("prisma start init", prisma);
+    const q = await prisma.play.count();
+
+    console.log("all data loaded", q);
+    // prisma.$disconnect();
 
     // await wait(100000);
 

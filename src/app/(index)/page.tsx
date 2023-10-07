@@ -1,8 +1,14 @@
+import prisma from "@/libs/prisma";
 import { serverClient } from "../_trpc/serverClient";
 
 const Page = async () => {
-  const q = await serverClient.healthcheck();
-  console.log("q.useQuery", q);
+  const tq = await serverClient.healthcheck();
+
+  console.log("tq: ", tq);
+
+  console.log("start");
+  const q = await prisma.play.count();
+  console.log("start end", q);
 
   return <main className="min-h-screen flex-center">main</main>;
 };
