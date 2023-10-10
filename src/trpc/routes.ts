@@ -1,4 +1,3 @@
-import prisma from "@/libs/prisma";
 import { initTRPC } from "@trpc/server";
 import { z } from "zod";
 
