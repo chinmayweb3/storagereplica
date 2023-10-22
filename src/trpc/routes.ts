@@ -24,17 +24,21 @@ export const appRouter = router({
     console.log("healthcheck clicked");
 
     // console.log(
-    await db.user
-      .create({
-        data: {
-          image: "sd",
-          title: "sdf",
-          uri: "sddslkklkljkjkkjlf",
-        },
-      })
-      .then((dta) => {
-        console.log("api success", dta);
-      });
+    // await db.user
+    //   .create({
+    //     data: {
+    //       image: "sd",
+    //       title: "sdf",
+    //       uri: "sddslkklkljkjkkjlf",
+    //     },
+    //   })
+    //   .then((dta) => {
+    //     console.log("api success", dta);
+    //   });
+
+    await db.user.deleteMany().then((d) => {
+      console.log("delete success", d);
+    });
     // );
     return "ok";
   }),

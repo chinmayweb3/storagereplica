@@ -11,6 +11,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   if (!global.prisma) {
     global.prisma = new PrismaClient().$extends(withAccelerate());
+    // prisma = new PrismaClient();
   }
   prisma = global.prisma;
 }
