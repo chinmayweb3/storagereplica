@@ -5,7 +5,7 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === "production") {
-  // #ts-ignore
+  // @ts-ignore
   prisma = new PrismaClient().$extends(withAccelerate());
   // prisma = new PrismaClient();
 } else {
