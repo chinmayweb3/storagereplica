@@ -5,6 +5,8 @@ import { trpc } from "../_trpc/client";
 function GetTrpc() {
   const q = trpc.healthcheck.useQuery();
 
+  const utlits = trpc.useContext();
+
   console.log("working with trpc", q.data);
 
   return (

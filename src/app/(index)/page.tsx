@@ -8,6 +8,7 @@ const Page = async () => {
 
   console.log("start");
   const q = await db.play.count();
+
   console.log("start end", q);
 
   return <main className="min-h-screen flex-center">main</main>;
