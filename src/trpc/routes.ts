@@ -1,5 +1,7 @@
+import { db } from "@/libs/prisma";
 import { initTRPC } from "@trpc/server";
 import { z } from "zod";
+// export const runtime = "edge";
 
 const t = initTRPC.create();
 console.log("\n\n\n\n\n˝init______1");
@@ -11,6 +13,29 @@ export const publicProcedure = t.procedure;
 export const appRouter = router({
   // get
   healthcheck: publicProcedure.query(async () => {
+    console.log("healthcheck clicked");
+
+    // console.log(
+
+    // );
+    return "ok";
+  }),
+  testadd: publicProcedure.query(async () => {
+    console.log("healthcheck clicked");
+
+    // console.log(
+    await db.user
+      .create({
+        data: {
+          image: "sd",
+          title: "sdf",
+          uri: "sddslkklkljkjkkjlf",
+        },
+      })
+      .then((dta) => {
+        console.log("api success", dta);
+      });
+    // );
     return "ok";
   }),
 
