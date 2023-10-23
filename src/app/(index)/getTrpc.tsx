@@ -13,12 +13,12 @@ function GetTrpc() {
   const healthcheckClicked = async () => {
     console.log("clicked");
     // const q = trpc.healthcheck.;
-    await utlits.testadd.fetch().then((data) => {
-      console.log("indside ", data);
-    });
-    // const f = await fetch("/api/healthcheck").then((data) => {
-    //   console.log("working");
+    // await utlits.testadd.fetch().then((data) => {
+    //   console.log("indside ", data);
     // });
+    const f = await fetch("/api/healthcheck").then((data) => {
+      console.log("working");
+    });
   };
 
   return (
