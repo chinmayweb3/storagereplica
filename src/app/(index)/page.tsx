@@ -1,5 +1,6 @@
 import { prismadb } from "@/libs/prisma";
 import GetTrpc from "./getTrpc";
+import Login from "./login";
 
 const Page = async () => {
   // const tq = await serverClient.healthcheck();
@@ -17,6 +18,7 @@ const Page = async () => {
     <main className="min-h-screen flex-center">
       {" "}
       <GetTrpc />
+      <Login />
       main
     </main>
   );

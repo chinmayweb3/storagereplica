@@ -2,11 +2,16 @@
 import React from "react";
 import { trpc } from "../_trpc/client";
 import { Button } from "../components/ui/button";
+import { useSession } from "next-auth/react";
 
 function GetTrpc() {
   // const q = trpc.healthcheck.useQuery();
 
   const utlits = trpc.useContext();
+
+  const session = useSession();
+
+  console.log("this is user's data", session);
 
   // console.log("working with trpc", q.data);
 
