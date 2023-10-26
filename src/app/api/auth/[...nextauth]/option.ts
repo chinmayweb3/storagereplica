@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import d from "next-auth/adapters";
 
 const nextAuthOptions: NextAuthOptions = {
+  secret: "R3uE4Idy/StICyoGg51i+KtvIkOe8qQL+3Ybtdc4TKg=",
   providers: [
     GoogleProvider({
       clientId: "51105364489-1e4idugt2afr8nnab852vrn7g13o2ruv.apps.googleusercontent.com",
@@ -20,9 +21,9 @@ const nextAuthOptions: NextAuthOptions = {
     // },
   },
 
-  session: {
-    strategy: "jwt",
-  },
+  //   session: {
+  //     strategy: "jwt",
+  //   },
 };
 
 export default nextAuthOptions;
