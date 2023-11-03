@@ -14,19 +14,31 @@ const nextAuthOptions: NextAuthOptions = {
     }),
   ],
 
+  events: {
+    async createUser({ user }) {
+      if (user && user.email) {
+        const master = await prismadb.masterDrive.create({
+          data: {
+            user: {
+              connect: {
+                email: user.email,
+              },
+            },
+          },
+        });
+
+        console.log("created", master);
+      }
+    },
+  },
   callbacks: {
     async signIn({ account, profile }) {
-      // console.log("\n\nyou have authenticated\n\n", account, "\nProfile\n", profile);
       if (account && profile?.email && account.provider === "google") {
         return true;
       }
       return true;
     },
   },
-
-  //   session: {
-  //     strategy: "jwt",
-  //   },
 };
 
 export default nextAuthOptions;

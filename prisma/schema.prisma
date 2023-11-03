@@ -58,21 +58,27 @@ model VerificationToken {
 }
 
 model MasterDrive {
-  id      String   @id @default(cuid())
-  userId  String   @unique
-  user    User     @relation(fields: [userId], references: [id])
-  files   File[]
-  folders Folder[]
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  files     File[]
+  folders   Folder[]
 }
 
 model File {
   id            String      @id @default(cuid())
   masterDriveId String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
 }
 
 model Folder {
   id            String      @id @default(cuid())
   masterDriveId String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
 }

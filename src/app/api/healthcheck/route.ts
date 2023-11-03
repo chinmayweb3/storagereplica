@@ -34,9 +34,7 @@ export async function GET(request: NextRequest) {
   //   },
   // });
 
-  const resp = await prismadb.employee.count();
-
   console.log("db2 is server side rendering");
 
-  return new NextResponse(JSON.stringify(resp));
+  return new NextResponse(JSON.stringify("sd"));
 }
