@@ -10,13 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Playlist {
-  id    String @id @default(uuid())
-  title String
-  image String
-  uri   String
-}
-
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -45,13 +38,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  createdAt     DateTime     @default(now())
+  masterDrive   MasterDrive?
 }
 
 model VerificationToken {
@@ -60,4 +55,24 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model MasterDrive {
+  id      String   @id @default(cuid())
+  userId  String   @unique
+  user    User     @relation(fields: [userId], references: [id])
+  files   File[]
+  folders Folder[]
+}
+
+model File {
+  id            String      @id @default(cuid())
+  masterDriveId String
+  masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
+}
+
+model Folder {
+  id            String      @id @default(cuid())
+  masterDriveId String
+  masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
 }

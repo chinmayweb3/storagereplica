@@ -11,7 +11,7 @@ function GetTrpc() {
 
   const session = useSession();
 
-  console.log("this is user's data", session);
+  console.log("this is user's data", session.status);
 
   // console.log("working with trpc", q.data);
 

@@ -19,18 +19,6 @@ export const appRouter = router({
     await prismadb.user.count().then((d) => {
       console.log("count", d);
     });
-    await prismadb.user
-      .create({
-        data: {
-          image: "sd",
-          title: "sdf",
-          uri: "sddslkklkljkjkkjlf",
-          name: "sdf",
-        },
-      })
-      .then((dta) => {
-        console.log("api success", dta);
-      });
 
     // await prismadb.user.deleteMany().then((d) => {
     //   console.log("delete success", d);
@@ -55,6 +43,35 @@ export const appRouter = router({
 
     return { msg: "add Name " + name || "undefined" };
   }),
+
+  createClicked: publicProcedure.query(async (opts) => {
+    console.log("apei");
+
+    const co = await prismadb.employee2.count();
+    console.log("create", co);
+
+    const e = await prismadb.company2.create({
+      data: {
+        name: "sdf",
+        employee2: {
+          create: {
+            name: "dsz",
+          },
+        },
+      },
+
+      include: {
+        employee2: true,
+      },
+    });
+
+    // console.log("company createed employee", e);
+    return { employee: e };
+  }),
+  editClicked: publicProcedure.mutation(async (opts) => {
+    console.log("api clicked");
+  }),
+  deleteClicked: publicProcedure.query(async (opts) => {}),
 });
 
 export type AppRouter = typeof appRouter;
