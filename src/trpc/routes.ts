@@ -1,5 +1,8 @@
+import nextAuthOptions from "@/app/api/auth/[...nextauth]/option";
 import { prismadb } from "@/libs/prisma";
+import { TRPCClientError } from "@trpc/client";
 import { initTRPC } from "@trpc/server";
+import { getServerSession } from "next-auth";
 import { z } from "zod";
 
 const t = initTRPC.create();
@@ -13,60 +16,20 @@ export const appRouter = router({
   healthcheck: publicProcedure.query(async () => {
     return "ok";
   }),
-  testadd: publicProcedure.query(async () => {
-    console.log("healthcheck clicked trpc");
-
-    await prismadb.user.count().then((d) => {
-      console.log("count", d);
-    });
-
-    // await prismadb.user.deleteMany().then((d) => {
-    //   console.log("delete success", d);
-    // });
-    return "ok";
-  }),
-
-  //   get
-  displayMyName: publicProcedure.input(z.string()).query(async (opts) => {
-    const { input } = opts;
-
-    return {
-      msg: "my display name is " + input,
-    };
-  }),
-
-  //   post
-  addName: publicProcedure.input(z.object({ name: z.string().optional() })).mutation(async (opts) => {
-    const {
-      input: { name },
-    } = opts;
-
-    return { msg: "add Name " + name || "undefined" };
-  }),
 
   createClicked: publicProcedure.query(async (opts) => {
-    console.log("apei");
+    const session = await getServerSession(nextAuthOptions);
 
-    const co = await prismadb.employee2.count();
-    console.log("create", co);
+    if (!session || !session.user || !session.user.email) throw new TRPCClientError("user not logged in");
+    const prismaUser = await prismadb.user.findUnique({ where: { email: session?.user.email }, select: { masterDrive: { select: { id: true } } } });
 
-    const e = await prismadb.company2.create({
-      data: {
-        name: "sdf",
-        employee2: {
-          create: {
-            name: "dsz",
-          },
-        },
-      },
+    console.log("user: " + prismaUser);
+    if (!prismaUser || !prismaUser.masterDrive || !prismaUser.masterDrive.id) throw new TRPCClientError("masterDrive not found");
 
-      include: {
-        employee2: true,
-      },
-    });
+    const prismafolder = await prismadb.folder.create({ data: { name: "myFolder", masterDriveId: prismaUser.masterDrive.id } });
+    console.log("primsfolder", prismafolder);
 
-    // console.log("company createed employee", e);
-    return { employee: e };
+    return { created: prismafolder };
   }),
   editClicked: publicProcedure.mutation(async (opts) => {
     console.log("api clicked");

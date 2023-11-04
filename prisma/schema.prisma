@@ -68,17 +68,23 @@ model MasterDrive {
 }
 
 model File {
-  id            String      @id @default(cuid())
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  type      String   @default("file")
+
   masterDriveId String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
   masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
 }
 
 model Folder {
-  id            String      @id @default(cuid())
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  type      String   @default("folder")
+
   masterDriveId String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
   masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
 }
