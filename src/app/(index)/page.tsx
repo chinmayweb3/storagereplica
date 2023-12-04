@@ -1,4 +1,3 @@
-import { prismadb } from "@/libs/prisma";
 import GetTrpc from "./getTrpc";
 import Login from "./login";
 import ClientSidePage from "./clientSidePage";
@@ -9,7 +8,7 @@ const Page = async () => {
 
   // console.log("tq: ", tq);
 
-  console.log("start");
+  // console.log("start");
   // const q = await prismadb.user.create({
   //   data: { image: "sdf", name: "sdf", title: "sdf", uri: "sdf" },
   // });
@@ -19,10 +18,10 @@ const Page = async () => {
   return (
     <main className="min-h-screen flex-center">
       {" "}
-      <GetTrpc />
-      <ClientSidePage ServerSide={<ServerSide />} />
-      <Login />
-      main
+      {/* <GetTrpc /> */}
+      {/* <ClientSidePage ServerSide={<ServerSide />} /> */}
+      {/* <Login /> */}
+      {/* main */}
     </main>
   );
 };
