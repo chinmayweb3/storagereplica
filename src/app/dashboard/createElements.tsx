@@ -13,9 +13,11 @@ const CreateElements = () => {
   const deletecld = () => {};
   return (
     <>
-      <Button onClick={createcld}>Create</Button>
-      <Button onClick={uploadcld}>upload</Button>
-      <Button onClick={deletecld}>delete</Button>
+      <div className="flex mt-[20px] w-full justify-start items-center gap-[5px]">
+        <Button onClick={createcld}>Create Folder</Button>
+        <Button onClick={uploadcld}>upload File</Button>
+        <Button onClick={deletecld}>delete</Button>
+      </div>
     </>
   );
 };
