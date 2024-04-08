@@ -1,5 +1,5 @@
 start:
 	npm run dev
 
-migrate:
-	prisma migrate dev --name init
+migrateUp:
+	prisma migrate dev --name init 
