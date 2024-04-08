@@ -11,11 +11,11 @@ const createFolderApi = publicProcedure.query(async (opts) => {
 
   const prismaUser = await prismadb.user.findUnique({ where: { email: session?.user.email }, select: { masterDrive: { select: { id: true } } } });
 
-  console.log("user: " + prismaUser);
+  // console.log("user: " + prismaUser);
   if (!prismaUser || !prismaUser.masterDrive || !prismaUser.masterDrive.id) throw new TRPCClientError("masterDrive not found");
 
   const prismafolder = await prismadb.folder.create({ data: { name: "myFolder", masterDriveId: prismaUser.masterDrive.id } });
-  console.log("primsfolder", prismafolder);
+  // console.log("primsfolder", prismafolder);
 
   return { created: prismafolder };
 });

@@ -37,18 +37,6 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-  id            String       @id @default(cuid())
-  name          String?
-  email         String?      @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  createdAt     DateTime     @default(now())
-  masterDrive   MasterDrive?
-}
-
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -57,36 +45,71 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model MasterDrive {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  files     File[]
-  folders   Folder[]
+model User {
+  id            String      @id @default(cuid())
+  name          String?
+  email         String?     @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime    @default(now())
+  files         File[]
+  folders       Folder[]
+  hasAccess     HasAccess[]
 }
 
-model File {
-  id           String   @id @default(cuid())
-  name         String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  type         String   @default("file")
-  parentFolder String   @default("")
-
-  masterDriveId String
-  masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
+model HasAccess {
+  id       String @id @default(cuid())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folderId String
+  folder   Folder @relation(fields: [folderId], references: [id], onDelete: Cascade)
 }
 
 model Folder {
-  id           String   @id @default(cuid())
-  name         String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  type         String   @default("folder")
-  parentFolder String   @default("")
-
-  masterDriveId String
-  masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
+  id        String      @id @default(cuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  HasAccess HasAccess[]
 }
+
+model File {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// model MasterDrive {
+//   id        String   @id @default(cuid())
+//   userId    String   @unique
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   user      User     @relation(fields: [userId], references: [id])
+//   files     File[]
+//   folders   Folder[]
+// }
+
+// model File {
+//   id           String   @id @default(cuid())
+//   name         String
+//   createdAt    DateTime @default(now())
+//   updatedAt    DateTime @updatedAt
+//   type         String   @default("file")
+//   parentFolder String?
+
+//   masterDriveId String
+//   masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
+// }
+
+// model Folder {
+//   id           String   @id @default(cuid())
+//   name         String
+//   createdAt    DateTime @default(now())
+//   updatedAt    DateTime @updatedAt
+//   type         String   @default("folder")
+//   parentFolder String?
+
+//   masterDriveId String
+//   masterDrive   MasterDrive @relation(fields: [masterDriveId], references: [id], onDelete: Cascade)
+// }
